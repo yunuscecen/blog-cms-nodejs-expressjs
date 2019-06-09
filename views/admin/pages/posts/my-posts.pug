@@ -20,7 +20,7 @@ block script
             publishPost[i].addEventListener("change", function(event){
                 let dataId = $(this).attr('data-id');
                 let body = { data : publishPost[i].checked, postId : dataId}
-                fetch("http://localhost:3000/admin/posts/publish-post", {
+                fetch("/admin/posts/publish-post", {
                     method : "POST",
                     cache : "no-cache",
                     headers : {
@@ -46,7 +46,7 @@ block script
             allowComments[i].addEventListener("change", function(event){
                 let dataId = $(this).attr('data-id');
                 let body = { data : allowComments[i].checked, postId : dataId}
-                fetch("http://localhost:3000/admin/posts/allow-comments", {
+                fetch("/admin/posts/allow-comments", {
                     method : "POST",
                     cache : "no-cache",
                     headers : {

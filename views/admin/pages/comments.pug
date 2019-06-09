@@ -22,7 +22,7 @@ block script
         approveComment[i].addEventListener("change", function(event){
             let commentId = $(this).attr('data-id');
             let body = { data : approveComment[i].checked, commentId : commentId}
-            fetch("http://localhost:3000/admin/comments/approve-comment", {
+            fetch("/admin/comments/approve-comment", {
                 method : "POST",
                 cache : "no-cache",
                 headers : {
