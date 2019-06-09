@@ -1,0 +1,59 @@
+body {
+    font-family: Poppins;
+}
+
+h1, h2 {
+    font-family: Poppins;
+}
+
+.post-preview p {
+    
+    font-size: 14px!important;
+    font-family: Poppins;
+}
+.post-meta {
+    font-family: 'Playfair Display', serif;
+
+}
+.nav-link {
+    font-family: Poppins;
+}
+.navbar {
+    background-image: url("/home/img/headerbg.jpg")!important;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.site-heading h1 {
+    text-shadow: 0px 2px 24px #00000038;
+}
+.masthead {
+  
+    background-image: url("/home/img/homeheaderbg.jpg")!important;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.btn-primary {
+    color: #ffffff;
+    background: #df0a5e;
+    border: 2px solid #e01856;
+    border-radius: 300px;
+    font-family: inherit;
+    font-size: 14px!important
+}
+
+.postContent {
+    font-size: 15px;
+    line-height: 25px;
+    letter-spacing: .4px;
+}
+
+.post-preview {
+    padding: 10px 50px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0px 22px 50px 0px #e0e0e0;
+}
+

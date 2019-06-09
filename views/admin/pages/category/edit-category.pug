@@ -1,0 +1,21 @@
+extends ../../../layouts/admin-layout
+
+block content
+    .row
+        .col
+            .card
+                .card-header.header-elements-inline
+                    h5.card-title Add a new category
+                .card-body
+                    form(action=`/admin/categories/edit/${category._id}?_method=PUT` method="post")
+                        .form-group.row
+                            label.col-form-label.col-lg-2 Name
+                            .col-lg-10
+                                input(type="text" placeholder="Enter a title" value=`${category.name}` name="name" required).form-control
+                        .form-group.row
+                            label.col-form-label.col-lg-2 Description
+                            .col-lg-10
+                                input(type="text" placeholder="Enter a category description" value=`${category.desc}` name="description").form-control
+                        .form-group.row
+                            .col-lg-10
+                                button(type="submit").btn.btn-primary.legitRipple.mt-3 Update Category

@@ -1,0 +1,21 @@
+nav#mainNav.navbar.navbar-expand-lg.navbar-light.fixed-top
+    .container
+      a.navbar-brand(href='index.html') Start Bootstrap
+      button.navbar-toggler.navbar-toggler-right(type='button', data-toggle='collapse', data-target='#navbarResponsive', aria-controls='navbarResponsive', aria-expanded='false', aria-label='Toggle navigation')
+        | Menu
+        i.fas.fa-bars
+      #navbarResponsive.collapse.navbar-collapse
+        ul.navbar-nav.ml-auto
+          li.nav-item
+            a.nav-link(href='/') Home
+          li.nav-item
+            a.nav-link(href='/about') About Us
+          li.nav-item
+            a.nav-link(href='/contact') Contact
+          if !user
+            li.nav-item
+              a.nav-link(href='/login') Login
+            li.nav-item
+              a.nav-link(href='/register') Register
+          if user
+            a.nav-link(href='/admin' style="color:black; font-weight:bold; font-size:14px; background-color : white;") #{user.name} - Go Panel

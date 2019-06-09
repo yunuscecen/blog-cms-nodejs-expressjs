@@ -1,0 +1,123 @@
+doctype html
+head
+  meta(charset='utf-8')
+  meta(http-equiv='X-UA-Compatible', content='IE=edge')
+  meta(name='viewport', content='width=device-width, initial-scale=1, shrink-to-fit=no')
+  title Login
+  // Global stylesheets
+  link(href='https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900', rel='stylesheet', type='text/css')
+  link(href='/admin/css/styles.min.css', rel='stylesheet', type='text/css')
+  link(href='/common/css/bootstrap.min.css', rel='stylesheet', type='text/css')
+  link(href='/admin/css/bootstrap_limitless.min.css', rel='stylesheet', type='text/css')
+  link(href='/admin/css/layout.min.css', rel='stylesheet', type='text/css')
+  link(href='/admin/css/components.min.css', rel='stylesheet', type='text/css')
+  link(href='/admin/css/colors.min.css', rel='stylesheet', type='text/css')
+  // /global stylesheets
+  // Core JS files
+  script(src='/common/js/jquery.min.js')
+  script(src='/common/js/bootstrap.bundle.min.js')
+  script(src='/admin/js/core/blockui.min.js')
+  script(src='/admin/js/core/ripple.min.js')
+  // /core JS files
+  // Theme JS files
+  script(src='/admin/js/theme/pnotify.min.js')
+  script(src='/admin/js/theme/app.js')
+  // /theme JS files
+// Main navbar
+.navbar.navbar-expand-md.navbar-dark.bg-indigo.navbar-static
+  .navbar-brand
+    a.d-inline-block(href='index.html')
+      img(src='../../../../global_assets/images/logo_light.png', alt='')
+  .d-md-none
+    button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbar-mobile')
+      i.icon-tree5
+  #navbar-mobile.collapse.navbar-collapse
+    ul.navbar-nav &#x9;&#x9;&#x9;
+    span.navbar-text.ml-md-3
+      span.badge.badge-mark.border-orange-300.mr-2
+      | &#x9;&#x9;&#x9;&#x9;Welcome 
+    ul.navbar-nav.ml-md-auto
+      li.nav-item
+        a.navbar-nav-link(href='/')
+          i.icon-switch2
+          span.d-md-none.ml-2 Logout
+// /main navbar
+// Page content
+.page-content
+  // Main content
+  .content-wrapper
+    // Content area
+    .content.d-flex.justify-content-center.align-items-center
+      // Login form
+      form.login-form(action='/register' method="post")
+        .card.mb-0
+          .card-body
+            .text-center.mb-3
+              i.icon-plus3.icon-2x.text-success.border-success.border-3.rounded-round.p-3.mb-3.mt-1
+              h5.mb-0 Create account
+              span.d-block.text-muted Enter your credentials below
+            .form-group.form-group-feedback.form-group-feedback-left
+              input.form-control(type='text',  placeholder='Name' value=((fields) ? fields.name : "" ) name="name" )
+              .form-control-feedback
+                i.icon-user.text-muted
+            .form-group.form-group-feedback.form-group-feedback-left
+              input.form-control(type='email', placeholder='Email' value=((fields) ? fields.email : "" ) name="email" )
+              .form-control-feedback
+                i.icon-mention.text-muted
+            .form-group.form-group-feedback.form-group-feedback-left
+              input.form-control(type='password', placeholder='Password'  name="password" )
+              .form-control-feedback
+                i.icon-user-lock.text-muted
+            .form-group.form-group-feedback.form-group-feedback-left
+              input.form-control(type='password', placeholder='Password Validate' name="passwordConfirm")
+              .form-control-feedback
+                i.icon-user-lock.text-muted
+            .form-group
+              button.btn.btn-primary.btn-block(type='submit')
+                | Create Account
+                i.icon-circle-right2.ml-2
+            .form-group.text-center.text-muted.content-divider
+                span.px-2 or creat account with
+            .form-group.text-center
+                a.btn.btn-outline.bg-indigo.border-indigo.text-indigo.btn-icon.rounded-round.border-2.legitRipple
+                    i.icon-facebook
+                a.btn.btn-outline.bg-info.border-info.text-info.btn-icon.rounded-round.border-2.ml-2.legitRipple
+                    i.icon-twitter
+            
+            .text-center
+              a(href='/login') You have account? Login.
+      // /login form
+    // /content area
+    
+    // /footer
+  // /main content
+// /page content
+script.
+  $(document).ready(function(){
+    let errors = "#{errors}"
+      if(errors){
+         new PNotify({
+              title: 'Register Error',
+              text: errors,
+              addclass: 'bg-danger border-danger'
+          });
+      }
+    
+      //- let successMessage = "#{successMessage}"
+      //- let errorMessage = "#{errorMessage}"
+      //- console.log(errorMessage);
+      //- if(successMessage){
+      //-     new PNotify({
+      //-         title: 'Success Message',
+      //-         text: successMessage,
+      //-         addclass: 'bg-success border-success'
+      //-     });
+      //- }
+      //- if(errorMessage){
+      //-     new PNotify({
+      //-         title: 'Register Error',
+      //-         text: errorMessage,
+      //-         addclass: 'bg-danger border-danger'
+      //-     });
+      //- }
+  });

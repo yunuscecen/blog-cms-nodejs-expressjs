@@ -1,0 +1,70 @@
+extends ../../../layouts/admin-layout
+
+block script
+    script(src="/admin/js/theme/interactions.min.js")
+    script(src="/admin/js/theme/select2.min.js")
+    script(src="/admin/js/theme/form_select2.js")
+    script(src="/admin/js/theme/uniform.min.js")
+    //- script(src="https://cdn.ckeditor.com/ckeditor5/12.0.0/classic/ckeditor.js")
+    //- script(src="/admin/js/theme/ck5.js")
+    style.
+        .alert {
+            margin-bottom : 5px!important;
+        }
+    script.
+        $('.form-control-uniform').uniform();
+
+        // Custom select
+        $('.form-control-uniform-custom').uniform({
+            fileButtonClass: 'action btn bg-blue',
+            selectClass: 'uniform-select bg-pink-400 border-pink-400'
+        });
+block content
+    .row
+        .col  
+
+            .card
+                .card-header.header-elements-inline
+                    h5.card-title Add a new post
+                .card-body
+                    form(action=`/admin/posts/my-posts/edit/${post._id}?_method=PUT` method="post" enctype="multipart/form-data")
+                        .form-group.row
+                            label.col-form-label.col-lg-2 Title
+                            .col-lg-10
+                                input(type="text" placeholder="Enter a title" value=`${post.title}` name="title").form-control
+                        .form-group.row
+                            label.col-form-label.col-lg-2 Description
+                            .col-lg-10
+                                input(type="text" placeholder="Enter a description" value=`${post.desc}` name="description").form-control
+                        .form-group.row
+                            label.col-form-label.col-lg-2 Category
+                            .col-lg-10
+                                select.form-control.select(name="category")
+                                    each category in categories
+                                        - let categoryId = category._id.toString();
+                                        - let postCategoryId = post.category.toString();
+                                        - let result = (categoryId === postCategoryId) ? true : false
+                                        option(value=`${category._id}` selected=result) #{category.name}
+                        .form-group.row
+                            label.col-form-label.col-lg-2 Post Image
+                            .col-lg-10
+                                img(src=`/common/uploads/${post.postImage}`, width="500" alt="")
+                        .form-group.row
+                            label.col-form-label.col-lg-2 Image
+                            .col-lg-10
+                                input(type="file" name="image").form-control-uniform
+                        
+                        .form-group.row
+                            label.col-form-label.col-lg-2 Content
+                            .col-lg-10
+                                textarea(name="postBody" rows="4" cols="4" ).form-control  #{post.postBody}
+                                button(type="submit").btn.btn-primary.legitRipple.mt-3 Update Post
+                        
+                        script.
+                             // Default initialization
+                            $('.select').select2({
+                                minimumResultsForSearch: Infinity
+                            });
+
+                           
+        

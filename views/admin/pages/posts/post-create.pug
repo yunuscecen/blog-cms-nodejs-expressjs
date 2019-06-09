@@ -1,0 +1,79 @@
+extends ../../../layouts/admin-layout
+
+block script
+    script(src="/admin/js/theme/interactions.min.js")
+    script(src="/admin/js/theme/select2.min.js")
+    script(src="/admin/js/theme/form_select2.js")
+    script(src="/admin/js/theme/uniform.min.js")
+    //- script(src="https://cdn.ckeditor.com/ckeditor5/12.0.0/classic/ckeditor.js")
+    //- script(src="/admin/js/theme/ck5.js")
+    style.
+        .alert {
+            margin-bottom : 5px!important;
+        }
+    script.
+        
+
+        $('.form-control-uniform').uniform();
+
+        // Custom select
+        $('.form-control-uniform-custom').uniform({
+            fileButtonClass: 'action btn bg-blue',
+            selectClass: 'uniform-select bg-pink-400 border-pink-400'
+        });
+block content
+    .row
+        .col  
+
+            if errors
+                .card
+                    .card-body
+                        each error in errors
+                            div.alert.alert-warning.border-0.alert-dismissible
+                                span #{error.message}
+
+            .card
+                .card-header.header-elements-inline
+                    h5.card-title Add a new post
+                .card-body
+                    form(action="/admin/posts/create" method="post" enctype="multipart/form-data")
+                        .form-group.row
+                            label.col-form-label.col-lg-2 Title
+                            .col-lg-10
+                                input(type="text" placeholder="Enter a title" name="title").form-control
+                        .form-group.row
+                            label.col-form-label.col-lg-2 Description
+                            .col-lg-10
+                                input(type="text" placeholder="Enter a description" name="description").form-control
+                        .form-group.row
+                            label.col-form-label.col-lg-2 Category
+                            .col-lg-10
+                                select.form-control.select(name="category")
+                                    each category in categories
+                                        option(value=`${category._id}`) #{category.name}
+                        .form-group.row
+                            label.col-form-label.col-lg-2 Image
+                            .col-lg-10
+                                input(type="file" name="image").form-control-uniform
+                        //- .form-group.row
+                        //-     label.col-form-label.col-lg-2 Allow Comments
+                        //-     .col-lg-10
+                        //-         input(type="checkbox" checked placeholder="Enter a description" name="allowComments" data-switchery="true" style="display:none").form-control.js-switch.publishPost
+                        //- .form-group.row
+                        //-     label.col-form-label.col-lg-2 Publish Post
+                        //-     .col-lg-10
+                        //-         input(type="checkbox" checked placeholder="Enter a description" name="publishPost" data-switchery="true" style="display:none").form-control.js-switch.allowComments
+                        .form-group.row
+                            label.col-form-label.col-lg-2 Content
+                            .col-lg-10
+                                textarea(name="postBody" rows="4" cols="4").form-control 
+                                button(type="submit").btn.btn-primary.legitRipple.mt-3 Add Post 
+                        
+                        script.
+                             // Default initialization
+                            $('.select').select2({
+                                minimumResultsForSearch: Infinity
+                            });
+
+                           
+        

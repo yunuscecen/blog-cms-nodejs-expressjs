@@ -1,0 +1,18 @@
+.navbar.navbar-expand-md.navbar-dark.bg-indigo.navbar-static
+  .navbar-brand
+    a.d-inline-block(href='index.html')
+      img(src='../../../../global_assets/images/logo_light.png', alt='')
+  .d-md-none
+    button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbar-mobile')
+      i.icon-tree5
+    button.navbar-toggler.sidebar-mobile-main-toggle(type='button')
+      i.icon-paragraph-justify3
+  #navbar-mobile.collapse.navbar-collapse
+    span.navbar-text.ml-md-3
+      span.badge.badge-mark.border-orange-300.mr-2
+      | &#x9;&#x9;&#x9;&#x9; Hello #{user.name}
+    ul.navbar-nav.ml-md-auto
+      li.nav-item
+        a.navbar-nav-link(href='/logout')
+          i.icon-switch2
+          span.d-md-none.ml-2 Logout

@@ -1,0 +1,64 @@
+extends ../../../layouts/admin-layout
+block style
+    style.
+        .deletePostBtn {
+            border: none;
+            background: none;
+            padding : 0px!important;
+        }
+block content
+    .row
+        .col
+            .card
+                .card-header.header-elements-inline
+                    h5.card-title Add a new category
+                .card-body
+                    form(action="/admin/categories/create" method="post")
+                        .form-group.row
+                            label.col-form-label.col-lg-2 Name
+                            .col-lg-10
+                                input(type="text" placeholder="Enter a title" name="name" required).form-control
+                        .form-group.row
+                            label.col-form-label.col-lg-2 Description
+                            .col-lg-10
+                                input(type="text" placeholder="Enter a category description" name="description").form-control
+                        .form-group.row
+                            .col-lg-10
+                                button(type="submit").btn.btn-primary.legitRipple.mt-3 Add Category 
+    .row
+        .col
+            .card
+                .card-header
+                    h5 Categories
+                    hr
+                .card-body
+                    table.table.datatable-basic
+                      thead
+                        tr
+                          th ID
+                          th Title
+                          th Description
+                          th.text-center Actions
+                      tbody
+                        each category in categories
+                            tr
+                                td #{category._id}
+                                td #{category.name}
+                                td #{category.desc}
+                                //- td 
+                                //-     input(type="checkbox" data-id=`${post._id}` checked=post.publishPost   placeholder="Enter a description" data-switchery="true" style="display:none").form-control.js-switch.publishPost
+                                //- td
+                                //-     input(type="checkbox" data-id=`${post._id}` checked=post.allowComments placeholder="Enter a description" data-switchery="true" style="display:none").form-control.js-switch.allowComments
+                                td.text-center
+                                    .list-icons
+                                    .dropdown
+                                        a.list-icons-item(href='#', data-toggle='dropdown')
+                                            i.icon-menu9
+                                        .dropdown-menu.dropdown-menu-right
+                                            a.dropdown-item(href=`/admin/categories/edit/${category._id}`)
+                                                i.icon-pencil4
+                                                |  Edit
+                                            a.dropdown-item(href='#')
+                                                i.icon-trash-alt
+                                                form(method="post" action=`/admin/categories/${category._id}?_method=DELETE`)
+                                                    button(type="submit" class="deletePostBtn") Delete

@@ -1,0 +1,87 @@
+extends ../../layouts/admin-layout
+
+block script
+
+    script(src="/admin/js/theme/switchery.min.js")
+    style.
+        .deletePostBtn {
+                border: none;
+                background: none;
+                padding : 0px!important;
+            }
+    script.
+        // Switchery Init
+        var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
+        elems.forEach(function(html) {
+            var switchery = new Switchery(html);
+        });
+        
+        var approveComment = document.querySelectorAll('.approveComment');
+
+        for(let i = 0; i < approveComment.length; i++ ){
+        approveComment[i].addEventListener("change", function(event){
+            let commentId = $(this).attr('data-id');
+            let body = { data : approveComment[i].checked, commentId : commentId}
+            fetch("http://localhost:3000/admin/comments/approve-comment", {
+                method : "POST",
+                cache : "no-cache",
+                headers : {
+                    "Content-Type" : "application/json"
+                },
+                body : JSON.stringify(body)
+            }).then(data => {
+                data.json().then(body => {
+                    if(body.success){
+                        new PNotify({
+                            title: 'Updated Successfuly',
+                            text: "Comment updated successfuly.",
+                            addclass: 'bg-success border-success'
+                        });
+                    }
+                })
+            })
+        })
+        }
+        
+
+       
+       
+block content
+    .row
+        .col
+            .card
+                .card-header
+                    h5 Comments
+                    hr
+                .card-body
+                    table.table.datatable-basic
+                      thead
+                        tr
+                          th ID
+                          th Author
+                          th Comment
+                          th Status
+                          th.text-center Actions
+                      tbody
+                        each comment in comments
+                            tr
+                                td #{comment._id}
+                                td #{comment.user.name}
+                                td #{comment.comment}
+                                td
+                                    input(type="checkbox"  data-id=`${comment._id}` checked=comment.approveComment   placeholder="Enter a description" data-switchery="true" style="display:none").form-control.js-switch.approveComment
+                                td.text-center
+                                    .list-icons
+                                    .dropdown
+                                        a.list-icons-item(href='#', data-toggle='dropdown')
+                                            i.icon-menu9
+                                        .dropdown-menu.dropdown-menu-right
+                                            a.dropdown-item(href="")
+                                                i.icon-trash-alt
+                                                form(method="post" action=`/admin/comments/${comment._id}?_method=DELETE`)
+                                                    button(type="submit" class="deletePostBtn") Delete 
+                                            
+                                            
+                                            
+
+                                

@@ -1,0 +1,90 @@
+.sidebar.sidebar-light.sidebar-main.sidebar-expand-md
+    // Sidebar mobile toggler
+    .sidebar-mobile-toggler.text-center
+      a.sidebar-mobile-main-toggle(href='#')
+        i.icon-arrow-left8
+      span.font-weight-semibold Navigation
+      a.sidebar-mobile-expand(href='#')
+        i.icon-screen-full
+        i.icon-screen-normal
+    // /sidebar mobile toggler
+    // Sidebar content
+    .sidebar-content
+      // User menu
+      .sidebar-user-material
+        .sidebar-user-material-body
+          .card-body.text-center
+            a(href='#')
+              img.img-fluid.rounded-circle.shadow-1.mb-3(src='../../../../global_assets/images/placeholders/placeholder.jpg', width='80', height='80', alt='')
+            h6.mb-0.text-white.text-shadow-dark #{user.name}
+            span.font-size-sm.text-white.text-shadow-dark #{user.email}
+          .sidebar-user-material-footer
+            a.d-flex.justify-content-between.align-items-center.text-shadow-dark.dropdown-toggle(href='#user-nav', data-toggle='collapse')
+              span My account
+        #user-nav.collapse
+          ul.nav.nav-sidebar
+            li.nav-item
+              a.nav-link(href='#')
+                i.icon-user-plus
+                span My profile
+            li.nav-item
+              a.nav-link(href='#')
+                i.icon-coins
+                span My balance
+            li.nav-item
+              a.nav-link(href='#')
+                i.icon-comment-discussion
+                span Messages
+                span.badge.bg-teal-400.badge-pill.align-self-center.ml-auto 58
+            li.nav-item
+              a.nav-link(href='#')
+                i.icon-cog5
+                span Account settings
+            li.nav-item
+              a.nav-link(href='#')
+                i.icon-switch2
+                span Logout
+      // /user menu
+      // Main navigation
+      .card.card-sidebar-mobile
+        ul.nav.nav-sidebar(data-nav-type='accordion')
+          // Main
+          li.nav-item-header
+            .text-uppercase.font-size-xs.line-height-xs Main
+            i.icon-menu(title='Main')
+          li.nav-item
+          a.nav-link.active(href='/')
+            i.icon-arrow-left12
+            span
+              | Go Blog
+          li.nav-item
+            a.nav-link.active(href='/admin')
+              i.icon-home4
+              span
+                | Dashboard
+          li.nav-item.nav-item-submenu
+            a.nav-link(href='#')
+              i.icon-pencil4
+              span Posts
+            ul.nav.nav-group-sub(data-submenu-title='Posts')
+              if user.isAdmin === true
+                li.nav-item
+                a.nav-link(href='/admin/posts') All Posts
+              li.nav-item
+                a.nav-link(href='/admin/posts/my-posts') My Posts
+              
+              li.nav-item
+                a.nav-link(href='/admin/posts/create') Create Post
+          if user.isAdmin === true
+            li.nav-item
+              a.nav-link(href='/admin/categories')
+                i.icon-books
+                span
+                  | Categories
+          if user.isAdmin === true
+            li.nav-item
+              a.nav-link(href='/admin/comments')
+                i.icon-comment-discussion
+                span
+                  | Comments
+                

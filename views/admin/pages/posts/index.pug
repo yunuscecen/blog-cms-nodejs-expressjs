@@ -1,0 +1,132 @@
+extends ../../../layouts/admin-layout
+
+block script
+
+    script(src="/admin/js/theme/switchery.min.js")
+    //- script(src="/admin/js/theme/posts.js")
+    style.
+        .deletePostBtn {
+                border: none;
+                background: none;
+                padding : 0px!important;
+            }
+    script.
+        // Switchery Init
+        var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
+        elems.forEach(function(html) {
+            var switchery = new Switchery(html);
+        });
+        var publishPost = document.querySelectorAll('.publishPost');
+        for(let i = 0; i < publishPost.length; i++ ){
+            publishPost[i].addEventListener("change", function(event){
+                let dataId = $(this).attr('data-id');
+                let body = { data : publishPost[i].checked, postId : dataId}
+                fetch("http://localhost:3000/admin/posts/publish-post", {
+                    method : "POST",
+                    cache : "no-cache",
+                    headers : {
+                        "Content-Type" : "application/json"
+                    },
+                    body : JSON.stringify(body)
+                }).then(data => {
+                    data.json().then(body => {
+                        if(body.success){
+                            new PNotify({
+                                title: 'Publish Post Successfuly',
+                                text: "Post Publish updated successfuly",
+                                addclass: 'bg-success border-success'
+                            });
+                        }
+                    })
+                })
+            })
+        }
+
+        var allowComments = document.querySelectorAll('.allowComments');
+        for(let i = 0; i < allowComments.length; i++ ){
+            allowComments[i].addEventListener("change", function(event){
+                let dataId = $(this).attr('data-id');
+                let body = { data : allowComments[i].checked, postId : dataId}
+                fetch("http://localhost:3000/admin/posts/allow-comments", {
+                    method : "POST",
+                    cache : "no-cache",
+                    headers : {
+                        "Content-Type" : "application/json"
+                    },
+                    body : JSON.stringify(body)
+                }).then(data => {
+                    data.json().then(body => {
+                        if(body.success){
+                            new PNotify({
+                                title: 'Allow Comments Updated',
+                                text: "Post Allow Comments updated successfuly",
+                                addclass: 'bg-success border-success'
+                            });
+                        }
+                    })
+                })
+            })
+        }
+
+        
+       
+block content
+    .row
+        .col
+            .card
+                .card-header
+                    h5 Posts
+                    hr
+                .card-body
+                    table.table.datatable-basic
+                      thead
+                        tr
+                          th ID
+                          th Title
+                          th Description
+                          th Author
+                          th Category   
+                          th Status
+                          th.text-center Actions
+                      tbody
+                        each post in posts
+                            tr
+                                td #{post._id}
+                                td #{post.title}
+                                td #{post.desc}
+                                td #{post.user.name}
+                                td #{post.category.name} 
+                                td 
+                                    if post.unpublish 
+                                        span.badge.bg-danger Un Publish
+                                    if !post.unpublish
+                                        span.badge.bg-success-400 Publish
+                                        
+                                //- td 
+                                    
+                                //-     input(type="checkbox" data-id=`${post._id}` checked=post.publishPost   placeholder="Enter a description" data-switchery="true" style="display:none").form-control.js-switch.publishPost
+                                //- td
+                                //-     input(type="checkbox" data-id=`${post._id}` checked=post.allowComments placeholder="Enter a description" data-switchery="true" style="display:none").form-control.js-switch.allowComments
+                                td.text-center
+                                    .list-icons
+                                    .dropdown
+                                        a.list-icons-item(href='#', data-toggle='dropdown')
+                                            i.icon-menu9
+                                        .dropdown-menu.dropdown-menu-right
+                                            a.dropdown-item(href=`/${post.slug}`)
+                                                i.icon-eye
+                                                |  View Post
+                                            if post.unpublish
+                                                a.dropdown-item(href='#')
+                                                    i.icon-checkmark
+                                                    form(method="post" action=`/admin/posts/unpublish-post/${post._id}`)
+                                                                button(type="submit" class="deletePostBtn") Publish
+                                            else 
+                                                a.dropdown-item(href='#')
+                                                    i.icon-cancel-square
+                                                    form(method="post" action=`/admin/posts/unpublish-post/${post._id}`)
+                                                                button(type="submit" class="deletePostBtn") Unpublish
+                                            
+                                            
+
+                                

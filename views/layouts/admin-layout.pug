@@ -1,0 +1,39 @@
+<!doctype html>
+html(lang="en")
+    include ../admin/includes/head
+    body
+    include ../admin/includes/navbar
+    .page-content
+        include ../admin/includes/sidebar
+        .content-wrapper
+            //- include ../admin/includes/breadcrumb
+            .content
+                block content
+                script(type="text/javascript").
+                    $(document).ready(function(){
+                        let successMessage = "#{successMessage}"
+                        let error = "#{error}"
+                        if(successMessage){
+                            new PNotify({
+                                title: 'Success Message',
+                                text: successMessage,
+                                addclass: 'bg-success border-success'
+                            });
+                        }
+
+                        if(error){
+                            new PNotify({
+                                title: 'Danger notice',
+                                text: error,
+                                addclass: 'bg-danger border-danger'
+                            });
+                        }
+                    });
+                block script    
+                
+                    
+
+
+                
+                   
+                    

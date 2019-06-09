@@ -1,0 +1,54 @@
+extends ../../layouts/home-layout
+block script
+    script(src="https://cdn.ckeditor.com/ckeditor5/12.0.0/classic/ckeditor.js")
+    style.
+        .comment {
+            font-size:13px;
+            border: none!important;
+            border-radius: 3px;
+            box-shadow: 0px 2px 3px 0px gainsboro;
+        }
+block content 
+    .container
+        .row
+            .col
+                img.img-fluid(src=`/common/uploads/${post.postImage}`)
+                hr
+                .card.comment
+                        .card-body Published by #{post.userName} /  Date : #{post.date}
+                hr
+                p.postContent #{post.postBody}
+                if post.allowComments
+                    if user
+                        hr
+                        
+                        form(action=`/admin/comments/${post._id}` method="post")
+                            .form-group
+                                label(for="comment" style="font-size:14px;") Comment
+                                textarea.form-control#comment(rows = "3" name="comment" placeholder="Enter a comment" style="padding:20px 30px;")
+                                button.mt-3.btn.btn-primary(type="submit" style="padding:8px 20px!important; font-size:14px!important; font-weight:normal; border-radius: 2px;") Send a comment
+                        each comment in post.comments
+                            .card.comment.mt-2
+                                .card-body 
+                                    h5 #{comment.commentAuthor}
+                                    | #{comment.commentBody}
+                                    hr
+                                    span(style="color: #9c9c9c;") #{ comment.commentDate }
+                        hr
+                    else 
+                        hr
+                        .card.comment
+                            .card-body You must be logged in to post a comment. 
+                                a(href="/login" style="color:orange;") Login
+                else
+                    hr
+                    .card.comment
+                        .card-body User has disabled comment
+                            
+                    
+
+    script.
+       
+        //- let postBody =  "#{post.postBody}";
+        //- console.log(postBody);
+        //- $('.textBody').prepend(postBody); 
